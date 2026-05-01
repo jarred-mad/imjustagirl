@@ -1,12 +1,14 @@
 'use client'
 
-import { useState, useEffect, useActionState } from 'react'
+import { useState, useEffect, useTransition } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase'
 import { formatShortDate, getInitials } from '@/lib/utils'
 import { updateProfile } from '@/app/(auth)/actions'
 import type { Profile, MembershipTier } from '@/lib/types'
+
+type ActionResult = { error: string } | { success: true; message?: string } | null
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
@@ -40,7 +42,15 @@ function TierBadge({ tier }: { tier: MembershipTier }) {
 }
 
 function ProfileEditForm({ profile, email }: { profile: Profile; email: string }) {
-  const [state, action, isPending] = useActionState(updateProfile, null)
+  const [state, setState] = useState<ActionResult>(null)
+  const [isPending, startTransition] = useTransition()
+
+  function action(formData: FormData) {
+    startTransition(async () => {
+      const result = await updateProfile(null, formData)
+      setState(result)
+    })
+  }
 
   const [fullName, setFullName] = useState(profile.full_name)
   const [username, setUsername] = useState(profile.username)
