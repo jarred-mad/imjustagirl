@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --forest: #1C3828;
+  --forest-deep: #2E5240;
+  --blush: #C9907A;
+  --cream: #F0EAD9;
+  --rose: #D96B8A;
+  --ivory: #FAF7F2;
+  --mink: #8B7B74;
+}
+
+@layer base {
+  body {
+    @apply bg-ivory text-forest;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-forest text-ivory px-6 py-3 rounded-full font-sans text-sm font-medium tracking-wide hover:bg-forest-deep transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply border border-forest text-forest px-6 py-3 rounded-full font-sans text-sm font-medium tracking-wide hover:bg-forest hover:text-ivory transition-colors duration-200;
+  }
+
+  .btn-rose {
+    @apply bg-rose text-ivory px-6 py-3 rounded-full font-sans text-sm font-medium tracking-wide hover:opacity-90 transition-opacity duration-200;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-cream overflow-hidden;
+  }
+
+  .input {
+    @apply w-full border border-mink/30 rounded-xl px-4 py-3 text-sm bg-white placeholder:text-mink focus:outline-none focus:ring-2 focus:ring-forest/20 focus:border-forest transition-colors duration-200;
+  }
+
+  .label {
+    @apply block text-xs font-medium text-mink uppercase tracking-wider mb-1.5;
+  }
+
+  .section-heading {
+    @apply font-serif text-3xl md:text-4xl text-forest leading-tight;
+  }
+
+  .divider {
+    @apply border-t border-cream;
+  }
+}
